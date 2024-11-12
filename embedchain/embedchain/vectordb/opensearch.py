@@ -44,7 +44,7 @@ class OpenSearchDB(BaseVectorDB):
             **self.config.extra_params,
         )
         info = self.client.info()
-        logger.info(f"Connected to {info['version']['distribution']}. Version: {info['version']['number']}")
+        logger.info(f"Connected to {info.get('version').get('distribution') or 'OpenSearch instance'}. Version: {info['version']['number']}")
         # Remove auth credentials from config after successful connection
         super().__init__(config=self.config)
 
