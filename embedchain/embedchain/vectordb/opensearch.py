@@ -5,7 +5,7 @@ from typing import Any, Optional, Union
 from tqdm import tqdm
 
 try:
-    from opensearchpy import OpenSearch
+    from opensearchpy import OpenSearch, RequestsHttpConnection
     from opensearchpy.helpers import bulk
 except ImportError:
     raise ImportError(
@@ -174,6 +174,7 @@ class OpenSearchDB(BaseVectorDB):
             http_auth=self.config.http_auth,
             use_ssl=hasattr(self.config, "use_ssl") and self.config.use_ssl,
             verify_certs=hasattr(self.config, "verify_certs") and self.config.verify_certs,
+            connection_class=RequestsHttpConnection
         )
 
         pre_filter = {"match_all": {}}  # default
