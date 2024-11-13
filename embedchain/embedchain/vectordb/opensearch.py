@@ -181,7 +181,8 @@ class OpenSearchDB(BaseVectorDB):
         if len(where) > 0:
             pre_filter = {"bool": {"must": []}}
             for key, value in where.items():
-                pre_filter["bool"]["must"].append({"term": {f"metadata.{key}.keyword": value}})
+                if key not in "app_id":
+                    pre_filter["bool"]["must"].append({"term": {f"metadata.{key}.keyword": value}})
 
         docs = docsearch.similarity_search_with_score(
             input_query,
