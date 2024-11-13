@@ -187,7 +187,7 @@ class OpenSearchDB(BaseVectorDB):
             input_query,
             search_type="script_scoring",
             space_type="cosinesimil",
-            vector_field="embeddings",
+            vector_field=self.config.extra_params.get("vector_field") or "embeddings",
             text_field="text",
             metadata_field="metadata",
             pre_filter=pre_filter,
